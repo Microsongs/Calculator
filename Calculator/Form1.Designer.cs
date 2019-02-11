@@ -53,12 +53,13 @@
             this.btn_dot = new System.Windows.Forms.Button();
             this.btn_0 = new System.Windows.Forms.Button();
             this.btn_plusminus = new System.Windows.Forms.Button();
-            this.inputData = new System.Windows.Forms.RichTextBox();
+            this.inputBox = new System.Windows.Forms.RichTextBox();
             this.mainLabel = new System.Windows.Forms.Label();
-            this.data = new System.Windows.Forms.RichTextBox();
+            this.valueBox = new System.Windows.Forms.RichTextBox();
             this.resultText = new System.Windows.Forms.Label();
             this.resultValue = new System.Windows.Forms.RichTextBox();
             this.label1 = new System.Windows.Forms.Label();
+            this.lastSign = new System.Windows.Forms.RichTextBox();
             this.SuspendLayout();
             // 
             // button1
@@ -271,6 +272,7 @@
             this.btn_equal.TabIndex = 24;
             this.btn_equal.Text = "=";
             this.btn_equal.UseVisualStyleBackColor = true;
+            this.btn_equal.Click += new System.EventHandler(this.btn_equal_Click);
             // 
             // btn_dot
             // 
@@ -301,14 +303,14 @@
             this.btn_plusminus.UseVisualStyleBackColor = true;
             this.btn_plusminus.Click += new System.EventHandler(this.btn_plusminus_Click);
             // 
-            // inputData
+            // inputBox
             // 
-            this.inputData.Location = new System.Drawing.Point(294, 154);
-            this.inputData.Name = "inputData";
-            this.inputData.Size = new System.Drawing.Size(526, 54);
-            this.inputData.TabIndex = 26;
-            this.inputData.Text = "";
-            this.inputData.TextChanged += new System.EventHandler(this.inputData_TextChanged);
+            this.inputBox.Location = new System.Drawing.Point(294, 154);
+            this.inputBox.Name = "inputBox";
+            this.inputBox.Size = new System.Drawing.Size(526, 54);
+            this.inputBox.TabIndex = 26;
+            this.inputBox.Text = "";
+            this.inputBox.TextChanged += new System.EventHandler(this.inputData_TextChanged);
             // 
             // mainLabel
             // 
@@ -319,20 +321,20 @@
             this.mainLabel.TabIndex = 27;
             this.mainLabel.Text = "Micro계산기";
             // 
-            // data
+            // valueBox
             // 
-            this.data.Location = new System.Drawing.Point(379, 113);
-            this.data.Name = "data";
-            this.data.ReadOnly = true;
-            this.data.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.data.Size = new System.Drawing.Size(439, 32);
-            this.data.TabIndex = 28;
-            this.data.Text = "";
+            this.valueBox.Location = new System.Drawing.Point(379, 113);
+            this.valueBox.Name = "valueBox";
+            this.valueBox.ReadOnly = true;
+            this.valueBox.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.valueBox.Size = new System.Drawing.Size(439, 32);
+            this.valueBox.TabIndex = 28;
+            this.valueBox.Text = "";
             // 
             // resultText
             // 
             this.resultText.AutoSize = true;
-            this.resultText.Location = new System.Drawing.Point(918, 171);
+            this.resultText.Location = new System.Drawing.Point(906, 243);
             this.resultText.Name = "resultText";
             this.resultText.Size = new System.Drawing.Size(60, 25);
             this.resultText.TabIndex = 29;
@@ -340,7 +342,7 @@
             // 
             // resultValue
             // 
-            this.resultValue.Location = new System.Drawing.Point(893, 214);
+            this.resultValue.Location = new System.Drawing.Point(881, 286);
             this.resultValue.Name = "resultValue";
             this.resultValue.ReadOnly = true;
             this.resultValue.Size = new System.Drawing.Size(120, 58);
@@ -356,17 +358,27 @@
             this.label1.TabIndex = 31;
             this.label1.Text = "저장된 수";
             // 
+            // lastSign
+            // 
+            this.lastSign.Location = new System.Drawing.Point(826, 113);
+            this.lastSign.Name = "lastSign";
+            this.lastSign.ReadOnly = true;
+            this.lastSign.Size = new System.Drawing.Size(79, 43);
+            this.lastSign.TabIndex = 32;
+            this.lastSign.Text = "";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 25F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1513, 762);
+            this.Controls.Add(this.lastSign);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.resultValue);
             this.Controls.Add(this.resultText);
-            this.Controls.Add(this.data);
+            this.Controls.Add(this.valueBox);
             this.Controls.Add(this.mainLabel);
-            this.Controls.Add(this.inputData);
+            this.Controls.Add(this.inputBox);
             this.Controls.Add(this.btn_onediv);
             this.Controls.Add(this.btn_equal);
             this.Controls.Add(this.btn_dot);
@@ -426,12 +438,13 @@
         private System.Windows.Forms.Button btn_dot;
         private System.Windows.Forms.Button btn_0;
         private System.Windows.Forms.Button btn_plusminus;
-        private System.Windows.Forms.RichTextBox inputData;
+        private System.Windows.Forms.RichTextBox inputBox;
         private System.Windows.Forms.Label mainLabel;
-        private System.Windows.Forms.RichTextBox data;
+        private System.Windows.Forms.RichTextBox valueBox;
         private System.Windows.Forms.Label resultText;
         private System.Windows.Forms.RichTextBox resultValue;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.RichTextBox lastSign;
     }
 }
 

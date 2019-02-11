@@ -12,14 +12,14 @@ namespace Calculator
 {
     public partial class Form1 : Form
     {
-
+        char sign = (char)0;  //연산 기호
         decimal inputValue = 0m;       //입력받는 변수
         decimal value = 0m; //저장된 변수
         int length;
         public Form1()
         {
             InitializeComponent();
-            inputData.Text = inputValue.ToString();  //0으로 초기화
+            inputBox.Text = inputValue.ToString();  //0으로 초기화
         }
         
         //자릿수 세팅
@@ -39,7 +39,7 @@ namespace Calculator
             length = (int)(Math.Log10((double)inputValue) + 1);
             inputValue *= 10;
             inputValue += n;
-            inputData.Text = inputValue.ToString();
+            inputBox.Text = inputValue.ToString();
         }
 
         private void inputData_TextChanged(object sender, EventArgs e)
@@ -103,60 +103,93 @@ namespace Calculator
         private void btn_plusminus_Click(object sender, EventArgs e)
         {
             inputValue *= -1;
-            inputData.Text = inputValue.ToString();
+            inputBox.Text = inputValue.ToString();
+        }
+        private void Calculate(char sign)
+        {
+            switch (sign)
+            {
+                case '+':
+                    value += inputValue;
+                    break;
+                case '-':
+                    value -= inputValue;
+                    break;
+                case '*':
+                    value *= inputValue;
+                    break;
+                case '/':
+                    value /= inputValue;
+                    break;
+                default:
+                    value += inputValue;
+                    break;
+            }
+            inputValue = 0;
+            inputBox.Text = inputValue.ToString();
+            valueBox.Text = value.ToString();
         }
 
         private void btn_plus_Click(object sender, EventArgs e)
         {
-            value += inputValue;
-            inputValue = 0;
-            inputData.Text = inputValue.ToString();
-            data.Text = value.ToString();
+            if(inputValue == 0)
+            {
+                sign = '+';
+                lastSign.Text = sign.ToString();
+                return;
+            }
+            Calculate(sign);
+            sign = '+';
+            lastSign.Text = sign.ToString();
         }
 
         private void btn_minus_Click(object sender, EventArgs e)
         {
-            if (value == 0)
+            if (inputValue == 0)
             {
-                value += inputValue;
+                sign = '-';
+                lastSign.Text = sign.ToString();
+                return;
             }
-            else
-            {
-                value -= inputValue;
-                inputValue = 0;
-                inputData.Text = inputValue.ToString();
-                data.Text = value.ToString();
-            }
+            Calculate(sign);
+            sign = '-';
+            lastSign.Text = sign.ToString();
         }
 
         private void btn_multiple_Click(object sender, EventArgs e)
         {
-            if (value == 0)
+            if (inputValue == 0)
             {
-                value += inputValue;
+                sign = '*';
+                lastSign.Text = sign.ToString();
+                return;
             }
-            else
-            {
-                value *= inputValue;
-                inputValue = 0;
-                inputData.Text = inputValue.ToString();
-                data.Text = value.ToString();
-            }
+            Calculate(sign);
+            sign = '*';
+            lastSign.Text = sign.ToString();
         }
 
         private void btn_divide_Click(object sender, EventArgs e)
         {
-            if (value == 0)
+            if (inputValue == 0)
             {
-                value += inputValue;
+                sign = '/';
+                lastSign.Text = sign.ToString();
+                return;
             }
-            else
-            {
-                value /= inputValue;
-                inputValue = 0;
-                inputData.Text = inputValue.ToString();
-                data.Text = value.ToString();
-            }
+            Calculate(sign);
+            sign = '/';
+            lastSign.Text = sign.ToString();
+        }
+
+        private void btn_equal_Click(object sender, EventArgs e)
+        {
+            Calculate(sign);
+            resultValue.Text = value.ToString();
+            value = 0;
+            valueBox.Text = value.ToString();
+            sign = (char)0;
+            lastSign.Text = sign.ToString();
         }
     }
 }
