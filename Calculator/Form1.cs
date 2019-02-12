@@ -7,13 +7,15 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Diagnostics;
 
 namespace Calculator
 {
     public partial class Form1 : Form
     {
         char sign = (char)0;  //연산 기호
-        decimal inputValue = 0m;       //입력받는 변수
+        //decimal inputValue = 0m;       //입력받는 변수
+        string inputValue = "0";
         decimal value = 0m; //저장된 변수
         int length;
         public Form1()
@@ -32,7 +34,7 @@ namespace Calculator
         }
         public void setInputValue(decimal Value)
         {
-            this.inputValue = Value;
+            this.inputValue = Value.ToString();
         }
 
         private void inputData_TextChanged(object sender, EventArgs e)
@@ -87,7 +89,7 @@ namespace Calculator
 
         private void btn_0_Click(object sender, EventArgs e)
         {
-            if(inputValue != 0)
+            if(decimal.Parse(inputValue) != 0)
             {
                 DataSetting.settingData(this, inputValue, 0);
             }
@@ -95,8 +97,16 @@ namespace Calculator
 
         private void btn_plusminus_Click(object sender, EventArgs e)
         {
-            inputValue *= -1;
-            inputBox.Text = inputValue.ToString();
+            //decimal.Parse(inputValue) *= -1;
+            if(inputValue.IndexOf("-") == -1)
+            {
+                inputValue = inputValue.Insert(0, "-");
+            }
+            else
+            {
+                inputValue = inputValue.Remove(0, 1);
+            }
+            UpdateInputValue();
         }
 
         private void Calculate(char sign)
@@ -104,29 +114,29 @@ namespace Calculator
             switch (sign)
             {
                 case '+':
-                    value += inputValue;
+                    value += decimal.Parse(inputValue);
                     break;
                 case '-':
-                    value -= inputValue;
+                    value -= decimal.Parse(inputValue);
                     break;
                 case '*':
-                    value *= inputValue;
+                    value *= decimal.Parse(inputValue);
                     break;
                 case '/':
-                    value /= inputValue;
+                    value /= decimal.Parse(inputValue);
                     break;
                 default:
-                    value += inputValue;
+                    value += decimal.Parse(inputValue);
                     break;
             }
-            inputValue = 0;
+            inputValue = "0";
             inputBox.Text = inputValue.ToString();
             valueBox.Text = value.ToString();
         }
 
         private void btn_plus_Click(object sender, EventArgs e)
         {
-            if(inputValue == 0)
+            if(inputValue == "0")
             {
                 sign = '+';
                 lastSign.Text = sign.ToString();
@@ -139,7 +149,7 @@ namespace Calculator
 
         private void btn_minus_Click(object sender, EventArgs e)
         {
-            if (inputValue == 0)
+            if (inputValue == "0")
             {
                 sign = '-';
                 lastSign.Text = sign.ToString();
@@ -152,7 +162,7 @@ namespace Calculator
 
         private void btn_multiple_Click(object sender, EventArgs e)
         {
-            if (inputValue == 0)
+            if (inputValue == "0")
             {
                 sign = '*';
                 lastSign.Text = sign.ToString();
@@ -165,7 +175,7 @@ namespace Calculator
 
         private void btn_divide_Click(object sender, EventArgs e)
         {
-            if (inputValue == 0)
+            if (inputValue == "0")
             {
                 sign = '/';
                 lastSign.Text = sign.ToString();
@@ -189,9 +199,9 @@ namespace Calculator
         private void btn_sqrt_Click(object sender, EventArgs e)
         {
             //0이 아닌 경우 입력되어있는 데이터부터 루트
-            if(inputValue != 0)
+            if(inputValue != "0")
             {
-                inputValue = (decimal)Math.Sqrt((double)inputValue);
+                inputValue = (Math.Sqrt(double.Parse(inputValue))).ToString();
                 UpdateInputValue();
             }
             //0인 경우 입력받아져있는 것부터 루트
@@ -205,9 +215,9 @@ namespace Calculator
         //제곱 버튼
         private void btn_pow_Click(object sender, EventArgs e)
         {
-            if (inputValue != 0)
+            if (decimal.Parse(inputValue) != 0)
             {
-                inputValue = (decimal)Math.Pow((double)inputValue,2);
+                inputValue = Math.Pow(double.Parse(inputValue),2).ToString();
                 UpdateInputValue();
             }
             //0인 경우 입력받아져있는 것부터 루트
@@ -221,9 +231,9 @@ namespace Calculator
         //세제곱 버튼
         private void btn_cube_Click(object sender, EventArgs e)
         {
-            if (inputValue != 0)
+            if (decimal.Parse(inputValue) != 0)
             {
-                inputValue = (decimal)Math.Pow((double)inputValue, 3);
+                inputValue = Math.Pow(double.Parse(inputValue), 3).ToString();
                 UpdateInputValue();
             }
             //0인 경우 입력받아져있는 것부터 루트
@@ -237,17 +247,27 @@ namespace Calculator
         //삭제 버튼
         private void btn_delete_Click(object sender, EventArgs e)
         {
-            if(inputValue != 0)
+            if(decimal.Parse(inputValue) != 0)
             {
                 //정수만 일단
-                inputValue = (decimal)((int)inputValue / 10);
+                inputValue = inputValue.Remove(inputValue.Length-1);
                 UpdateInputValue();
             }
         }
 
         private void btn_dot_Click(object sender, EventArgs e)
         {
-            
+            Debug.WriteLine(inputValue.IndexOf("."));
+            if (inputValue.IndexOf(".") == -1)
+            {
+                inputValue += ".";
+                UpdateInputValue();
+            }
+            else
+            {
+                inputValue = inputValue.Remove(inputValue.IndexOf("."));
+                UpdateInputValue();
+            }
         }
 
         //정수 실수 확인
