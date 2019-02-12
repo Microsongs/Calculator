@@ -40,6 +40,23 @@ namespace Calculator
         private void inputData_TextChanged(object sender, EventArgs e)
         {
             //inputData.Text = inputValue.ToString();
+            string _tempVal = inputBox.Text;
+            string _resVal = string.Empty;
+
+            foreach(char _c in _tempVal)
+            {
+                if (char.IsNumber(_c) || _c.Equals(".") || _c.Equals("-"))
+                    _resVal = string.Format("{0}{1}", _resVal, _c);
+            }
+            if (!inputBox.Text.Equals(_resVal))
+            {
+                inputBox.Text = _resVal;
+                inputBox.Select(inputBox.Text.Length, 0);
+            }
+            else
+            {
+                inputValue = _resVal;
+            }
         }
 
         private void btn_1_Click(object sender, EventArgs e)
