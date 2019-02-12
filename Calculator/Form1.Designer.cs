@@ -88,6 +88,7 @@
             this.btn_delete.TabIndex = 2;
             this.btn_delete.Text = "Del";
             this.btn_delete.UseVisualStyleBackColor = true;
+            this.btn_delete.Click += new System.EventHandler(this.btn_delete_Click);
             // 
             // btn_divide
             // 
@@ -116,6 +117,7 @@
             this.btn_sqrt.TabIndex = 10;
             this.btn_sqrt.Text = "√";
             this.btn_sqrt.UseVisualStyleBackColor = true;
+            this.btn_sqrt.Click += new System.EventHandler(this.btn_sqrt_Click);
             // 
             // btn_multiple
             // 
@@ -165,6 +167,7 @@
             this.btn_pow.TabIndex = 15;
             this.btn_pow.Text = "제곱";
             this.btn_pow.UseVisualStyleBackColor = true;
+            this.btn_pow.Click += new System.EventHandler(this.btn_pow_Click);
             // 
             // btn_minus
             // 
@@ -214,6 +217,7 @@
             this.btn_cube.TabIndex = 20;
             this.btn_cube.Text = "세제곱";
             this.btn_cube.UseVisualStyleBackColor = true;
+            this.btn_cube.Click += new System.EventHandler(this.btn_cube_Click);
             // 
             // btn_plus
             // 
@@ -282,6 +286,7 @@
             this.btn_dot.TabIndex = 23;
             this.btn_dot.Text = ".";
             this.btn_dot.UseVisualStyleBackColor = true;
+            this.btn_dot.Click += new System.EventHandler(this.btn_dot_Click);
             // 
             // btn_0
             // 
@@ -345,7 +350,7 @@
             this.resultValue.Location = new System.Drawing.Point(881, 286);
             this.resultValue.Name = "resultValue";
             this.resultValue.ReadOnly = true;
-            this.resultValue.Size = new System.Drawing.Size(120, 58);
+            this.resultValue.Size = new System.Drawing.Size(482, 80);
             this.resultValue.TabIndex = 30;
             this.resultValue.Text = "";
             // 

@@ -21,25 +21,18 @@ namespace Calculator
             InitializeComponent();
             inputBox.Text = inputValue.ToString();  //0으로 초기화
         }
-        
-        //자릿수 세팅
-        private int position()
-        {
-            int temp = 1;
-            for (int i = 0; i < length; i++)
-            {
-                temp *= 10;
-            }
-            return temp;
-        }
 
-        //데이터 세팅
-        private void settingData(int n)
+        public void UpdateInputValue() //입력받아져있는 데이터 업데이트
         {
-            length = (int)(Math.Log10((double)inputValue) + 1);
-            inputValue *= 10;
-            inputValue += n;
             inputBox.Text = inputValue.ToString();
+        }
+        public void UpdateValue()
+        {
+            valueBox.Text = value.ToString();
+        }
+        public void setInputValue(decimal Value)
+        {
+            this.inputValue = Value;
         }
 
         private void inputData_TextChanged(object sender, EventArgs e)
@@ -49,54 +42,54 @@ namespace Calculator
 
         private void btn_1_Click(object sender, EventArgs e)
         {
-            settingData(1);
+            DataSetting.settingData(this, inputValue, 1);
         }
 
         private void btn_2_Click(object sender, EventArgs e)
         {
-            settingData(2);
+            DataSetting.settingData(this, inputValue, 2);
         }
 
         private void btn_3_Click(object sender, EventArgs e)
         {
-            settingData(3);
+            DataSetting.settingData(this, inputValue, 3);
         }
 
         private void btn_4_Click(object sender, EventArgs e)
         {
-            settingData(4);
+            DataSetting.settingData(this, inputValue, 4);
         }
 
         private void btn_5_Click(object sender, EventArgs e)
         {
-            settingData(5);
+            DataSetting.settingData(this, inputValue, 5);
         }
 
         private void btn_6_Click(object sender, EventArgs e)
         {
-            settingData(6);
+            DataSetting.settingData(this, inputValue, 6);
         }
 
         private void btn_7_Click(object sender, EventArgs e)
         {
-            settingData(7);
+            DataSetting.settingData(this, inputValue, 7);
         }
 
         private void btn_8_Click(object sender, EventArgs e)
         {
-            settingData(8);
+            DataSetting.settingData(this, inputValue, 8);
         }
 
         private void btn_9_Click(object sender, EventArgs e)
         {
-            settingData(9);
+            DataSetting.settingData(this, inputValue, 9);
         }
 
         private void btn_0_Click(object sender, EventArgs e)
         {
             if(inputValue != 0)
             {
-                settingData(0);
+                DataSetting.settingData(this, inputValue, 0);
             }
         }
 
@@ -105,6 +98,7 @@ namespace Calculator
             inputValue *= -1;
             inputBox.Text = inputValue.ToString();
         }
+
         private void Calculate(char sign)
         {
             switch (sign)
@@ -190,6 +184,85 @@ namespace Calculator
             valueBox.Text = value.ToString();
             sign = (char)0;
             lastSign.Text = sign.ToString();
+        }
+
+        private void btn_sqrt_Click(object sender, EventArgs e)
+        {
+            //0이 아닌 경우 입력되어있는 데이터부터 루트
+            if(inputValue != 0)
+            {
+                inputValue = (decimal)Math.Sqrt((double)inputValue);
+                UpdateInputValue();
+            }
+            //0인 경우 입력받아져있는 것부터 루트
+            else
+            {
+                value = (decimal)Math.Sqrt((double)value);
+                UpdateValue();
+            }
+        }
+
+        //제곱 버튼
+        private void btn_pow_Click(object sender, EventArgs e)
+        {
+            if (inputValue != 0)
+            {
+                inputValue = (decimal)Math.Pow((double)inputValue,2);
+                UpdateInputValue();
+            }
+            //0인 경우 입력받아져있는 것부터 루트
+            else
+            {
+                value = (decimal)Math.Pow((double)value,2);
+                UpdateValue();
+            }
+        }
+
+        //세제곱 버튼
+        private void btn_cube_Click(object sender, EventArgs e)
+        {
+            if (inputValue != 0)
+            {
+                inputValue = (decimal)Math.Pow((double)inputValue, 3);
+                UpdateInputValue();
+            }
+            //0인 경우 입력받아져있는 것부터 루트
+            else
+            {
+                value = (decimal)Math.Pow((double)value, 3);
+                UpdateValue();
+            }
+        }
+
+        //삭제 버튼
+        private void btn_delete_Click(object sender, EventArgs e)
+        {
+            if(inputValue != 0)
+            {
+                //정수만 일단
+                inputValue = (decimal)((int)inputValue / 10);
+                UpdateInputValue();
+            }
+        }
+
+        private void btn_dot_Click(object sender, EventArgs e)
+        {
+            
+        }
+
+        //정수 실수 확인
+        private Boolean isNumberic(string str)
+        {
+            int i;
+            try
+            {
+                i = Convert.ToInt32(str);
+            }
+            catch
+            {
+                return false;
+            }
+            return true;
         }
     }
 }
